@@ -8,16 +8,14 @@ load_dotenv(dotenv_path)
 url = os.environ.get("URL")
 
 # Telegram settings
-import telebot
-
-SECRET_KEY = os.environ.get("SECRET_KEY")
-DATABASE_PASSWORD = os.environ.get("DATABASE_PASSWORD")
+from packages.messenger import MessengerTelegram
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
 telegram_url = os.environ.get("TELEGRAM_URL")
-telegram = telebot.TeleBot(TELEGRAM_TOKEN, threaded=False)
-""" Для смены сервера """
-"""
+telegram = MessengerTelegram(TELEGRAM_TOKEN)
+""" Одноразова для смены сервера
 import time
+import telebot
+telegram = telebot.TeleBot(TELEGRAM_TOKEN, threaded=False)
 telegram.remove_webhook()
 time.sleep(1)
 telegram.set_webhook(url="{0}{1}".format(url, telegram_url))
